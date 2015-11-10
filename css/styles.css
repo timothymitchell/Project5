@@ -1,0 +1,99 @@
+/* Base CSS */
+
+html,body{
+  	height:100%;
+}
+
+body{
+  	padding-top:50px;
+}
+
+.navbar-custom .icon-bar {
+	background-color:#fff;
+}
+
+.navbar-custom {
+	background-color: #1E824C;
+    color:#fff;
+}
+
+.navbar-custom li>a:hover,.navbar-custom li>a:focus {
+	background-color:#49bfff;
+}
+
+.navbar-custom a{
+    color:#fefefe;
+}
+
+.navbar-custom .form-control:focus {
+	border-color: #49bfff;
+	outline: 0;
+	-webkit-box-shadow: inset 0 0 0;
+	box-shadow: inset 0 0 0;
+}
+
+.click {
+    cursor: pointer;
+}
+
+.list-header {
+    margin: 36px 0px 16px 20px;
+    color: #1E824C;
+}
+
+/* Info Window Styles */
+.info-window {
+    width: 250px;
+}
+
+/* Style the pic of the course that is returned */
+.course-pic {
+    float: left;
+    margin-right: 15px;
+}
+
+.course-name {
+    color: green;
+    text-align: center;
+    margin: 0 0 5px 0;
+}
+
+.course-search-input {
+    margin-left: 20px;
+}
+
+
+.rating {
+    border: 1px #717171 solid;
+    border-radius: 5px;
+    padding: 0.2em;
+}
+
+.rating:first-of-type {
+    margin: 0 0 5px 0;
+}
+
+.rating * {
+    display: inline;
+    margin: auto 2px;
+}
+
+#main, #main>.row {
+	height:100%;
+}
+
+#main>.row {
+    overflow-y:scroll;
+}
+
+/* Set a hight for the map in mobile view */
+@media (max-width: 767px) {
+    #course-map {
+        height: 450px;
+    }
+}
+
+.atl-map {
+    float: right;
+    height: 100%;
+}

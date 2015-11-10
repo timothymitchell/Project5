@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>Metro Atlanta Golf Courses</title>
+		<meta name="golf" content="Metro Atlanta Golf Courses" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="css/styles.css" rel="stylesheet">
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.3/handlebars.min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAc9WK-hyi_pAm9m0LafnOKuGMCexc2Si4"></script>
+    <script defer src='js/vendor/knockout-3.3.0.js'></script>
+    <script defer src="js/vendor/oauth-signature.min.js"></script>
+    <script defer src='js/model.js'></script>
+    <script defer src="js/main.js"></script>
+	</head>
+	<body>
+    <div class="navbar navbar-custom navbar-fixed-top">
+      <div class="navbar-header"><img src="img/golf-atlanta.png"></div>
+    </div>
+    <div class="col-xs-12 col-sm-8 col-md-9 col-sm-push-1 atl-map" id="course-map">
+    <!-- Position metro Atlanta area map -->
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <h4 class="list-header">Golf Courses of Metro Atlanta</h4>
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+             <input type="text" class="form-control course-search-input"  data-bind="textInput: searchString" placeholder="Search Courses...">
+          </div>
+        </div>
+        <div class="course-menu">
+          <div class="clubs">
+              <ol data-bind="foreach: filteredLocations">
+                  <li><span class="click" data-bind="text: name, click: $parent.handleClick"></li>
+              </ol>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Map info window Handlebars template -->
+    <script id="info-template" type="text/x-handlebars-template">
+      <div id="infowindow" class="info-window">
+          <img src="{{image}}" class="course-pic" id="course-pic" alt="Picture of Course">
+          <address>
+            <strong>{{name}}</strong><br>
+            {{street}}<br>
+            {{city}}, {{state}} {{zip}}<br>
+            <abbr title="Phone">P:</abbr> <a href="tel:{{phone}}">{{phone}}</a>
+          </address>
+          <div>
+            <img src="img/yelp-logo.png" alt="The Yelp Logo">
+            <img src="{{yelpRating}}" alt="Yelp Rating {{yelpRatingStars}} Stars"> <!-- Yelp Review -->
+          </div>
+          <div>
+            <img src ='img/foursquare-logo.png' alt='The Foursquare Logo'>
+            Foursquare rating: {{foursquareRating}} <!-- Foursquare Review -->
+          </div>
+      </div>
+    </script>
+	</body>
+</html>
