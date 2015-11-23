@@ -81,7 +81,9 @@ var ViewModel = function() {
   });
 
   // Generate info window with Handlebars template for the courses when clicked
-  self.infowindow = new google.maps.InfoWindow();
+  self.infowindow = new google.maps.InfoWindow({
+    content: '<div style="width: 250px; height: 150px;"></div>'
+  });
 
   // Set zoom on marker, animate and position to center
   self.handleClick = function(course) {
@@ -91,6 +93,7 @@ var ViewModel = function() {
     setTimeout(function(){ course.marker.setAnimation(null); }, 750);
     // Async calls to get course ratings
     self.getYelpInfo(course);
+
     // Display the info window
     self.infowindow.open(map, course.marker);
     $('#iwName').text(course.name());
@@ -146,13 +149,15 @@ var ViewModel = function() {
           yelpRatingStars: results.rating,
         }
 
-        // Call Yelp after success
+        // Call Foursquare after success
         self.getFoursquareInfo(course, context);
       }
     };
 
     // AJAX
-    $.ajax(settings);
+    $.ajax(settings).fail(function(jqXHR, textStatus, errorThrown) {
+      alert( errorThrown );
+    });
   };
 
   // Pull from Foursquare
@@ -182,8 +187,9 @@ var ViewModel = function() {
     };
 
     // AJAX
-    $.ajax(settings);
-
+    $.ajax(settings).fail(function(jqXHR, textStatus, errorThrown) {
+      alert( errorThrown );
+    });
   };
 };
 
