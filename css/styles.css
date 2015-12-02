@@ -13,7 +13,7 @@ body{
 }
 
 .navbar-custom {
-	background-color: #1E824C;
+	background-color: #1e824c;
     color:#fff;
 }
 
@@ -38,7 +38,7 @@ body{
 
 .list-header {
     margin: 36px 0px 16px 20px;
-    color: #1E824C;
+    color: #1e824c;
 }
 
 /* Info Window Styles */
@@ -96,4 +96,15 @@ body{
 .atl-map {
     float: right;
     height: 100%;
+}
+
+/* Alert */
+
+.alert {
+    margin-right: 22px;
+}
+
+.alert-danger {
+    margin-top: 28px;
+    text-align: center;
 }

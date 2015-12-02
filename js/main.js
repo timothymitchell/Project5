@@ -97,9 +97,6 @@ var ViewModel = function() {
     // Display the info window
     self.infowindow.open(map, course.marker);
     $('#iwName').text(course.name());
-    if (shown == true) {
-      $('#').animate({ left: 0 }, 'slow');
-      shown = false;}
   };
 
   // Pull from Yelp
@@ -113,15 +110,15 @@ var ViewModel = function() {
         return (Math.floor(Math.random() * 1e12).toString());
     };
     var parameters =
-        {
-            oauth_consumer_key : '8g-8KUSDN-k2VnZHM3txGQ',
-            oauth_token : 'JGElGpgAssjRlZXar75nFglXbtirLVDZ',
-            oauth_nonce : nonceMaker(),
-            oauth_timestamp : Math.floor(Date.now()/1000),
-            oauth_signature_method : 'HMAC-SHA1',
-            oauth_version : '1.0',
-            callback: 'callback'
-        };
+      {
+        oauth_consumer_key : '8g-8KUSDN-k2VnZHM3txGQ',
+        oauth_token : 'JGElGpgAssjRlZXar75nFglXbtirLVDZ',
+        oauth_nonce : nonceMaker(),
+        oauth_timestamp : Math.floor(Date.now()/1000),
+        oauth_signature_method : 'HMAC-SHA1',
+        oauth_version : '1.0',
+        callback: 'callback'
+      };
     var consumerSecret = '0GUk4kWXxnNluSVppFRC24frdGk';
     var tokenSecret = 'fCl8T9p3kJ97d1R755KCGeDGnEw';
     var encodedSignature = oauthSignature.generate(httpMethod, builtURL, parameters, consumerSecret, tokenSecret);
@@ -133,6 +130,10 @@ var ViewModel = function() {
       data: parameters,
       cache: true,
       dataType: 'jsonp',
+      // Diplay an alert if an error occurs
+      error: function(XMLHttpRequest, textStatus) {
+         alert("Error: An error occurred while trying to retrieve requested information");
+      },
       // Populate the Handlebars template
       success: function(results) {
         // Display an FPO image if one is not is returned
@@ -155,9 +156,7 @@ var ViewModel = function() {
     };
 
     // AJAX
-    $.ajax(settings).fail(function(jqXHR, textStatus, errorThrown) {
-      alert( errorThrown );
-    });
+    $.ajax(settings);
   };
 
   // Pull from Foursquare
@@ -171,7 +170,11 @@ var ViewModel = function() {
     // Create settings object for ajax call
     var settings = {
       url: builtURL,
-      // Fallback in case not rating is returned
+      // Diplay and error alert if call fails
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert("Error: " + errorThrown);
+      },
+      // Populate the rating
       success: function(results) {
         context.foursquareRating = results.response.venue.rating;
         if (results.response.venue.rating) {
@@ -187,9 +190,8 @@ var ViewModel = function() {
     };
 
     // AJAX
-    $.ajax(settings).fail(function(jqXHR, textStatus, errorThrown) {
-      alert( errorThrown );
-    });
+    $.ajax(settings);
+
   };
 };
 
