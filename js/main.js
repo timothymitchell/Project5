@@ -1,3 +1,4 @@
+
 // Create course objects from model data
 var course = function(data) {
   var self = this;
@@ -17,7 +18,7 @@ var course = function(data) {
 
   // Adding a click event listener to the marker
   self.marker.addListener('click', function() {
-  self.marker.setIcon("img/flag2.png")
+    self.marker.setIcon("img/flag2.png");
   });
 
   // Dispaly and remove marker
@@ -34,11 +35,11 @@ var course = function(data) {
 
 // Generate map of Metro Atlanta
 var map = new google.maps.Map(document.getElementById('course-map'), {
-    zoom: 11,
-    center: {
-      lat: 33.748795,
-      lng: -84.388342
-    }
+  zoom: 11,
+  center: {
+  lat: 33.748795,
+  lng: -84.388342
+  }
 });
 
 // Handlebar Template - Information Window
@@ -96,7 +97,6 @@ var ViewModel = function() {
 
     // Display the info window
     self.infowindow.open(map, course.marker);
-    $('#iwName').text(course.name());
   };
 
   // Pull from Yelp
@@ -125,15 +125,14 @@ var ViewModel = function() {
     parameters.oauth_signature = encodedSignature;
 
     // Settings for AJAX call
+    var foursquareRequestTimeout = setTimeout(function(){
+      alert("Error: An error occurred while trying to retrieve requested Yelp information.");
+    }, 6000);
     var settings = {
       url: builtURL,
       data: parameters,
       cache: true,
       dataType: 'jsonp',
-      // Diplay an alert if an error occurs
-      error: function(XMLHttpRequest, textStatus) {
-         alert("Error: An error occurred while trying to retrieve requested information");
-      },
       // Populate the Handlebars template
       success: function(results) {
         // Display an FPO image if one is not is returned
@@ -148,10 +147,10 @@ var ViewModel = function() {
           image: courseimage,
           yelpRating: results.rating_img_url,
           yelpRatingStars: results.rating,
-        }
-
+        };
         // Call Foursquare after success
         self.getFoursquareInfo(course, context);
+        clearTimeout(foursquareRequestTimeout);
       }
     };
 
@@ -172,7 +171,7 @@ var ViewModel = function() {
       url: builtURL,
       // Diplay and error alert if call fails
       error: function(XMLHttpRequest, textStatus, errorThrown) {
-        alert("Error: " + errorThrown);
+        alert("Error: An error occurred while trying to retrieve requested Foursquare information.");
       },
       // Populate the rating
       success: function(results) {

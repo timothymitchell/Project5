@@ -1,6 +1,6 @@
 /* Base CSS */
-
-html,body{
+html,
+body{
   	height:100%;
 }
 
@@ -99,7 +99,6 @@ body{
 }
 
 /* Alert */
-
 .alert {
     margin-right: 22px;
 }
