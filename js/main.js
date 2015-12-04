@@ -1,4 +1,3 @@
-
 // Create course objects from model data
 var course = function(data) {
   var self = this;
@@ -8,7 +7,7 @@ var course = function(data) {
   self.yelpID = ko.observable(data.yelpID);
   self.foursquareID = ko.observable(data.foursquareID);
 
-  // Generater map marker and set custom icon
+  // Generate map marker and set custom icon
   self.marker = new google.maps.Marker({
       position: self.latLng(),
       map: null,
@@ -33,14 +32,21 @@ var course = function(data) {
   };
 };
 
-// Generate map of Metro Atlanta
-var map = new google.maps.Map(document.getElementById('course-map'), {
-  zoom: 11,
-  center: {
-  lat: 33.748795,
-  lng: -84.388342
-  }
-});
+
+var map;
+
+function initMap() {
+  // Generate map of Metro Atlanta
+  map = new google.maps.Map(document.getElementById('course-map'), {
+    zoom: 11,
+    center: {
+    lat: 33.748795,
+    lng: -84.388342
+    }
+  });
+
+  ko.applyBindings( new ViewModel() );
+}
 
 // Handlebar Template - Information Window
 var source = $("#info-template").html();
@@ -176,11 +182,6 @@ var ViewModel = function() {
       // Populate the rating
       success: function(results) {
         context.foursquareRating = results.response.venue.rating;
-        if (results.response.venue.rating) {
-          $('#foursquareRating').html('<p>Rating: ' + results.response.venue.rating + ' out of 10 based on ' + results.response.venue.ratingSignals + ' ratings!</p>');
-        } else {
-          $('#foursquareRating').html('<p>Looks like somebody needs to play this course!</p>');
-        }
 
         // Update the info window
         var html = template(context);
@@ -193,5 +194,3 @@ var ViewModel = function() {
 
   };
 };
-
-ko.applyBindings( new ViewModel() );
